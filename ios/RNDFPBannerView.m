@@ -55,6 +55,13 @@
 - (void)loadBanner {
     GADRequest *request = [GADRequest request];
     request.testDevices = _testDevices;
+
+    if (_customTargeting != nil) {
+        if (_customTargeting.count > 0) {
+            request.customTargeting = _customTargeting;
+        }
+    }
+    
     [_bannerView loadRequest:request];
 }
 
@@ -75,6 +82,11 @@
 - (void)setTestDevices:(NSArray *)testDevices
 {
     _testDevices = RNAdMobProcessTestDevices(testDevices, kDFPSimulatorID);
+}
+
+- (void)setCustomTargeting:(NSDictionary *)customTargeting
+{
+    _customTargeting = customTargeting;
 }
 
 -(void)layoutSubviews
